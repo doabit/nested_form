@@ -13,6 +13,7 @@ Add it to your Gemfile then run +bundle+ to install it.
 
   gem "nested_form"
 
+
 Next run the generator to create the JavaScript file. This will automatically detect if you are using jQuery or Prototype.
 
   rails g nested_form:install
@@ -23,6 +24,23 @@ Running the generator will add a file at <tt>public/javascripts/nested_form.js</
 
 
 == Usage
+
+== Rails3.1 
+
+Support for client_side_validations 
+
+The javascript file is served up in the asset pipeline. Add the following to your app/assets/javascripts/application.js file.
+
+  //= require nested_form
+
+Add the following to your _form.html.erb file.
+    <div id="tasks-fields">
+    <%= f.fields_for :tasks do |task_form| %>
+      <%= task_form.text_field :name %>
+      <%= task_form.link_to_remove "Remove this task" %>
+    <% end %>
+    <p><%= f.link_to_add "Add a task", :tasks %></p>
+
 
 Imagine you have a <tt>Project</tt> model that <tt>has_many :tasks</tt>. To be able to use this gem, you'll need to add <tt>accepts_nested_attributes_for :tasks</tt> to your Project model. If you don't have the <tt>accepts_nested_attributes_for :tasks</tt> you'll get a Missing Block Error.
 
